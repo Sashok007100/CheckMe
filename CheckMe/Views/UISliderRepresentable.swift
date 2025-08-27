@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UISliderRepresentable: UIViewRepresentable {
     @Binding var currentValue: Double
-    var alpha: CGFloat
+    let alpha: Double
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
