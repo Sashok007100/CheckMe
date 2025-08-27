@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UISliderRepresentable: UIViewRepresentable {
     @Binding var currentValue: Double
-    @Binding var targetValue: Int
+    var alpha: CGFloat
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
@@ -27,10 +27,6 @@ struct UISliderRepresentable: UIViewRepresentable {
     
     func updateUIView(_ uiView: UISlider, context: Context) {
         uiView.value = Float(currentValue)
-        
-        let score = computeScore()
-        
-        let alpha = CGFloat(score) / 100.0
         
         uiView.thumbTintColor = UIColor.red.withAlphaComponent(alpha)
     }
@@ -52,13 +48,8 @@ extension UISliderRepresentable {
             currentValue = Double(sender.value)
         }
     }
-    
-    private func computeScore() -> Int {
-        let difference = abs(targetValue - lround(currentValue))
-        return 100 - difference
-    }
 }
 
 #Preview {
-    UISliderRepresentable(currentValue: .constant(50), targetValue: .constant(100))
+    UISliderRepresentable(currentValue: .constant(50), alpha: 1)
 }
