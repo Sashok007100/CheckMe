@@ -13,13 +13,20 @@ struct ContentView: View {
     @State private var showAlert = false
     @State private var score = 0
     
+    private var currentAlpha: CGFloat {
+        CGFloat(computeScore()) / 100.0
+    }
+    
     var body: some View {
         VStack(spacing: 30) {
             Text("Подвиньте слайдер, как можно ближе к: \(targetValue)")
             
             HStack{
                 Text("0")
-                UISliderRepresentable(currentValue: $currentValue, targetValue: $targetValue)
+                UISliderRepresentable(
+                    currentValue: $currentValue,
+                    alpha: currentAlpha
+                )
                 Text("100")
             }
             
@@ -33,9 +40,7 @@ struct ContentView: View {
             }
         }
         .padding()
-        .alert(
-            "Your Score",
-            isPresented: $showAlert) {
+        .alert("Your Score", isPresented: $showAlert) {
                 Button("OK") {}
             } message: {
                 Text("\(score)")
